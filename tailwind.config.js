@@ -159,7 +159,7 @@ module.exports = {
     divideColor: (theme) => theme("borderColor"),
     divideOpacity: (theme) => theme("borderOpacity"),
     divideWidth: (theme) => theme("borderWidth"),
-    fill: ({ theme }) => ({
+    fill: ( theme ) => ({
       colors: theme('colors')
     }),
     flex: {
