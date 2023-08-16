@@ -22,7 +22,7 @@ virtualenv -p {caminhoDoPython2.7} {nomeDoAmbiente}
 
 ## Por padrão, o nome do ambiente pode ser chamado de venv.
 
-## Por padrão, o caminho do python 2.7 é /usr/bin/python2.7, mas para saber o caminho do python2.7, execute o comando abaixo:
+## Por padrão, o caminho do python 2.7 é /usr/bin/python2.7, mas para saber o caminho do python2.7 pode ser executado o comando abaixo:
 
 ```
 which python2.7
