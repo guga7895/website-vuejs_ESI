@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import money from '@/stores/money'
+import regionalizacao from '@/stores/regionalizacao'
 import esic from '@/stores/esic'
 import empenhos from '@/stores/empenhos'
 import comments from '@/stores/comments'
@@ -15,6 +16,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     money,
+    regionalizacao,
     esic,
     empenhos,
     comments,

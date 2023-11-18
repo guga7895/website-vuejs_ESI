@@ -57,6 +57,8 @@ export default {
       'getPointInfo',
       'getEmpenhos',
       'getMoneyPage',
+      'getYearPointsRegiao',
+      'getYearInfoRegiao',
       'getPedidos',
       'getComments',
       'getUserInfo',
@@ -70,6 +72,8 @@ export default {
     year: {
       handler (newValue, oldValue) {
         if (newValue) {
+          this.getYearPointsRegiao({ params: { year: newValue } })
+          this.getYearInfoRegiao({ params: { year: newValue } })
           this.getYearPoints({ params: { year: newValue } })
           this.getYearInfo({ params: { year: newValue } })
         }

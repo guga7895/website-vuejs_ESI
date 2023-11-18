@@ -87,7 +87,7 @@ export default {
       return values
     },
     ...mapState({
-      yearInfo: state => state.money.yearInfo,
+      yearInfo: state => state.regionalizacao.yearInfoRegiao,
       year: state => state.route.params.year
     })
   }
