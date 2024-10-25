@@ -1,4 +1,4 @@
-Given('Estpu na página do mapa') do
+Given('Estou na página do mapa') do
     visit '/map-despesas'
   end
   
