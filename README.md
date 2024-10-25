@@ -7,6 +7,11 @@
 
 # Membrane
 
+## GitHub Actions Badge 
+
+### Rodar projeto utilizando npm start
+[![Rodar projeto com npm](https://github.com/guga7895/Cuidando_do_meu_bairro/actions/workflows/github-actions-run.yml/badge.svg?branch=master)](https://github.com/guga7895/Cuidando_do_meu_bairro/actions/workflows/github-actions-run.yml)
+
 ## Project setup
 ```
 npm install
