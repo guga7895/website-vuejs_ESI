@@ -1,9 +1,9 @@
 name: Executar Testes Cucumber
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  Test-Cucumber:
+  test:
     runs-on: windows-latest
 
     steps:
@@ -27,9 +27,18 @@ jobs:
         run: npm install
 
       - name: Iniciar o servidor
-        run: npm run serve &
+        run: Start-Process -FilePath "npm" -ArgumentList "run serve" -NoNewWindow
         env:
           CI: true
 
+      - name: Aguardar o servidor estar pronto
+        run: npx wait-on http://localhost:8080 --timeout 300000 
+
+      - name: Verificar se o servidor está em execução
+        run: curl -I http://localhost:8080
+
       - name: Executar testes Cucumber
         run: bundle exec cucumber
+
+      - name: Parar o servidor
+        run: taskkill /F /IM node.exe
