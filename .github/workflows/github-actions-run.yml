@@ -22,12 +22,3 @@ jobs:
         run: npm run serve &
         env:
           CI: true
-
-      - name: Aguardar o servidor estar pronto
-        run: npx wait-on http://localhost:8080
-
-      - name: Executar testes ou outros comandos
-        run: echo "O servidor está em execução. Você pode executar seus testes ou outros comandos aqui."
-
-      - name: Parar o servidor
-        run: taskkill /F /IM node.exe
