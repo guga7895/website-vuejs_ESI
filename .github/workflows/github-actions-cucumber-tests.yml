@@ -31,14 +31,8 @@ jobs:
         env:
           CI: true
 
-      - name: Aguardar o servidor estar pronto
-        run: npx wait-on http://localhost:8080 --timeout 300000 
-
-      - name: Verificar se o servidor está em execução
-        run: curl -I http://localhost:8080
-
       - name: Executar testes Cucumber
-        run: bundle exec cucumber
+        run: cucumber
 
       - name: Parar o servidor
         run: taskkill /F /IM node.exe
