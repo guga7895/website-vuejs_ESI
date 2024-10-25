@@ -1,0 +1,35 @@
+name: Executar Testes Cucumber
+
+on: [push]
+
+jobs:
+  Test-Cucumber:
+    runs-on: windows-latest
+
+    steps:
+      - name: Fazer checkout do código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+
+      - name: Instalar dependências do projeto
+        run: bundle install
+
+      - name: Instalar dependências do Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Instalar dependências do Node.js
+        run: npm install
+
+      - name: Iniciar o servidor
+        run: npm run serve &
+        env:
+          CI: true
+
+      - name: Executar testes Cucumber
+        run: bundle exec cucumber
