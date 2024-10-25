@@ -1,4 +1,4 @@
-name: Run Project with npm
+name: Rodar projeto com npm
 
 on: [push]
 
@@ -7,15 +7,27 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Check out repository code
+      - name: Fazer checkout do código do repositório
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - name: Install dependencies
+
+      - name: Instalar dependências
         run: npm install
 
-      - name: Run the project
-        run: npm run serve
+      - name: Iniciar o servidor
+        run: npm run serve &
+        env:
+          CI: true
+
+      - name: Aguardar o servidor estar pronto
+        run: npx wait-on http://localhost:8080
+
+      - name: Executar testes ou outros comandos
+        run: echo "O servidor está em execução. Você pode executar seus testes ou outros comandos aqui."
+
+      - name: Parar o servidor
+        run: taskkill /F /IM node.exe
