@@ -1,12 +1,12 @@
-Given('I am on the map page') do
+Given('Estpu na página do mapa') do
     visit '/map-despesas'
   end
   
-  Then('I should see the map container') do
+  Then('Eu deveria conseguir ver o container do mapa') do
     expect(page).to have_css('.c-map')
   end
   
-  Then('I should see the map title and description') do
+  Then('Eu deveria ver o título e a descrição') do
     expect(page).to have_content('Acompanhe os gastos públicos da cidade de São Paulo em tempo real')
     expect(page).to have_content('O projeto Cuidando do Meu Bairro propõe tornar mais inteligível a visualização dos dados das despesas públicas a partir da geolocalização dos gastos')
   end
