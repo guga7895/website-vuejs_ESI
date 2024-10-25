@@ -1,5 +1,12 @@
 # website2
 
+## CodeClimate Badge
+
+[![Code Climate](https://codeclimate.com/github/cloudfoundry/membrane.png)](https://codeclimate.com/github/guga7895/Cuidando_do_meu_bairro)
+[![Build Status](https://travis-ci.org/cloudfoundry/membrane.png)](https://codeclimate.com/github/guga7895/Cuidando_do_meu_bairro)
+
+# Membrane
+
 ## Project setup
 ```
 npm install
