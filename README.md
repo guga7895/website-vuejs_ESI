@@ -5,8 +5,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/c987fae1c2f8d026245d/maintainability)](https://codeclimate.com/github/guga7895/Cuidando_do_meu_bairro/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c987fae1c2f8d026245d/test_coverage)](https://codeclimate.com/github/guga7895/Cuidando_do_meu_bairro/test_coverage)
 
-# Membrane
-
 ## GitHub Actions Badge 
 
 ### Rodar projeto utilizando npm start
