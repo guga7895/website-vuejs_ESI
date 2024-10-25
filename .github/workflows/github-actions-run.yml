@@ -1,0 +1,24 @@
+name: Rodar projeto com npm
+
+on: [push]
+
+jobs:
+  Run-Project:
+    runs-on: windows-latest
+
+    steps:
+      - name: Fazer checkout do código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Iniciar o servidor
+        run: npm run serve &
+        env:
+          CI: true
