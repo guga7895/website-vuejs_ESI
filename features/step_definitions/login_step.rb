@@ -3,7 +3,7 @@ Dado /que eu estou na tela inicial/ do
 end
 
 Quando /eu pressiono "Entrar"/ do
-  find(:xpath, '//*[@id="navbar"]/ul/li[5]/a').click
+  find(:css, '#navbar > ul > li:nth-child(5) > a').click
 end
 
 Entao /eu deveria ver "(.*)" dentro do id "(.*)"/ do |texto, id|
