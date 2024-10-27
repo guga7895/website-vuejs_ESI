@@ -1,0 +1,5 @@
+default: --format pretty
+
+localhost: --format pretty --require features/localhost/support/env.rb --require features/localhost/step_definitions features/localhost
+
+cuidando_vc: --format pretty --require features/cuidando_vc/support/env.rb --require features/cuidando_vc/step_definitions features/cuidando_vc
