@@ -2,9 +2,6 @@
 
 Funcionalidade: Fazer login
 
-/*FelipeTeste1
-12345*/
-
 Cenario: Abrir a pagina de login na página inicial
 Dado que eu estou na tela inicial
 Quando eu pressiono "Entrar" no cabeçalho
