@@ -122,7 +122,7 @@ export default {
     ...mapState({
       username: state => state.auth.username,
       years: state => state.money.years,
-      year: state => state.route.params.year
+      year: state => new Date().getFullYear()
     })
   },
   mounted () {
