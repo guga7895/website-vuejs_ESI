@@ -10,6 +10,16 @@
 ### Rodar projeto utilizando npm start
 [![Rodar projeto com npm](https://github.com/guga7895/Cuidando_do_meu_bairro/actions/workflows/github-actions-run.yml/badge.svg?branch=master)](https://github.com/guga7895/Cuidando_do_meu_bairro/actions/workflows/github-actions-run.yml)
 
+## Rodar Testes de Caracterização
+
+```
+npm i
+```
+
+```
+npm run teste
+```
+
 ## Rodar Testes Cucumber
 
 Para rodar os testes cucumber locais (no localhost), utilizar: 
