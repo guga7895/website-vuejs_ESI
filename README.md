@@ -17,7 +17,7 @@ npm i
 ```
 
 ```
-npm run teste
+npm run test
 ```
 
 ## Rodar Testes Cucumber
