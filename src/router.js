@@ -1,11 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import MapDespesas from './components/MapDespesas.vue'
-import Despesa from './views/Despesa.vue'
-import Pessoa from './views/Pessoa.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import MapDespesas from './components/MapDespesas.vue';
+import Despesa from './views/Despesa.vue';
+import Pessoa from './views/Pessoa.vue';
 
-Vue.use(Router)
+Vue.use(Router);
+
+const currentYear = new Date().getFullYear();
 
 let router = new Router({
   mode: 'history',
@@ -13,7 +15,7 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: `/2022/1`
+      redirect: `/${currentYear}/1`
     },
     {
       path: '/despesa/:year/:code',
@@ -57,16 +59,16 @@ let router = new Router({
       }
     }
   ]
-})
+});
 
 // Used to redirect legacy routes (domain/?/path/to/route -> domain/path/to/route)
 router.beforeEach((to, from, next) => {
-  let decoded = decodeURIComponent(to.fullPath)
+  let decoded = decodeURIComponent(to.fullPath);
   if (decoded.startsWith('/?/')) {
-    next({ path: decoded.slice(2).split('?')[0] })
+    next({ path: decoded.slice(2).split('?')[0] });
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;
