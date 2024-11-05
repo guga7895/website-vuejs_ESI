@@ -2,7 +2,7 @@
   <styled-select 
     class="year-selector separated-caret"
     :options="options"
-    :value="parseInt(year) || currentYear"
+    :value="parseInt(year)"
     @input="selected"
   />
 </template>
@@ -14,22 +14,19 @@ export default {
   name: 'year-select',
   computed: {
     options () {
-      // adiciona o ano atual a lista de anos e ordena pra os anos aparecerem em ordem decrescente.
-      const yearsWithCurrent = [this.currentYear, ...this.years.filter(year => year)];
-      const sortedYears = yearsWithCurrent.sort((a, b) => b - a);
-      return sortedYears.map((x) => { return { key: x, value: x } });
+      return this.years.map((x) => { return { key: x, value: x } })
     },
     ...mapState({
       years: state => state.money.years,
-      year: state => new Date().getFullYear()
+      year: state => state.route.params.year
     })
   },
   mounted () {
-    this.getYears();
+    this.getYears()
   },
   methods: {
     selected (year) {
-      this.$router.push({ name: 'home', params: { year } });
+      this.$router.push({ name: 'home', params: { year } })
     },
     ...mapActions([
       'getYears'
