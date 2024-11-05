@@ -16,20 +16,20 @@
     </transition>
 
     <div class="map__card-content container mx-auto">
-      <div v-if="expanded" class="my-auto mx-auto h-full lg:flex flex-col justify-center max-w-md lg:absolute">
-        <div class="bg-white lg:pb-10 lg:p-10 pt-10 pb-3 mb-5 lg:rounded-lg lg:shadow-lg">
+      <div v-if="expanded" class="my-auto mx-auto h-full lg:flex flex-col justify-center max-w-sm lg:absolute">
+        <div class="bg-white lg:pb-8 lg:p-8 pt-8 pb-3 mb-5 lg:rounded-lg lg:shadow-lg">
           <div class="c-map__title mb-5">
-          <h1 class="text-neutral-base lg:text-3xl lg:text-left text-center text-xl font-bold">Acompanhe os gastos públicos da cidade de São Paulo em tempo real</h1>
-          <p class="text-neutral-light lg:text-base lg:text-left text-center text-sm mt-2">O projeto Cuidando do Meu Bairro propõe tornar mais inteligível a visualização dos dados das despesas públicas a partir da geolocalização dos gastos</p>
-        </div>
-        <div class="">
-          <div class="c-map__search-address lg:mb-5 mb-3">
+            <h1 class="text-neutral-base lg:text-2xl lg:text-left text-center text-lg font-bold">Acompanhe os gastos públicos da cidade de São Paulo em tempo real</h1>
+            <p class="text-neutral-light lg:text-sm lg:text-left text-center text-xs mt-2">O projeto Cuidando do Meu Bairro propõe tornar mais inteligível a visualização dos dados das despesas públicas a partir da geolocalização dos gastos</p>
+          </div>
+          <div class="">
+            <div class="c-map__search-address lg:mb-5 mb-3">
               <input
                 id="search-address-input"
                 class="c-map__search-address-input form-control
                 block
                 w-full
-                lg:p-4
+                lg:p-3
                 text-base
                 font-normal
                 text-neutral-base
@@ -47,30 +47,30 @@
                 :placeholder="$t('Search for an address')"
                 focused
               />
-          </div>
-          <div class="c-map__year-submit grid grid-cols-2 gap-4 h-8">
-            <div>
-              <year-select class="w-44" />
             </div>
-            <div>
-              <button class="btn w-full h-full border-2 hover:bg-primary-dark font-medium text-xs leading-tight uppercase rounded border-primary-base hover:border-primary-dark bg-primary-base text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" @click="locateAddress">Buscar</button>
+            <div class="c-map__year-submit grid grid-cols-2 gap-4 h-8">
+              <div>
+                <year-select class="w-44" />
+              </div>
+              <div>
+                <button class="btn w-full h-full border-2 hover:bg-primary-dark font-medium text-xs leading-tight uppercase rounded border-primary-base hover:border-primary-dark bg-primary-base text-white focus:outline-none focus:ring-0 transition duration-150 ease-in-out" type="button" @click="locateAddress">Buscar</button>
+              </div>
             </div>
           </div>
-        </div>
         </div>
         
         <div class="c-map__legend flex rounded-lg lg:shadow-lg justify-center items-center bg-white p-1">
-            <span class="text-neutral-base text-sm font-bold">{{ $t("Map legend") }}:</span>
-            <div
-              v-for="category in categories"
-              :key="category"
-              class="capitalize map-category p-2"
-            >
-              <img :src="$assets[category]" class="w-5 mx-auto" />
-              <span class="text-neutral-light text-xs">{{ $t(category) }}</span>
-            </div>
+          <span class="text-neutral-base text-sm font-bold">{{ $t("Map legend") }}:</span>
+          <div
+            v-for="category in categories"
+            :key="category"
+            class="capitalize map-category p-2"
+          >
+            <img :src="$assets[category]" class="w-5 mx-auto" />
+            <span class="text-neutral-light text-xs">{{ $t(category) }}</span>
+          </div>
         </div>
-      </div> 
+      </div>
     </div> 
  
     <div id="map-parent-container" :class="{ 'expanded-map': expanded }">
@@ -267,6 +267,7 @@ export default {
       position: relative;
     }
   }
+  
   .search-address {
     z-index: 100;
     @media (min-width: screen-xs) {
