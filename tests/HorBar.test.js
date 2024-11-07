@@ -22,9 +22,8 @@ describe('HorBar.vue', () => {
         title: "Teste"
       }
     });
-    console.log(wrapper.props());
     const classDivDesejada = "div.inline-block.absolute.z-10.py-2.px-3.text-sm.font-medium.text-white.bg-gray-900.rounded-lg.shadow-sm.opacity-0.transition-opacity.duration-300.tooltip";
-    const divToolTip = wrapper.find(`.${classDivDesejada}`);
+    const  divToolTip = wrapper.find(`.${classDivDesejada}`);
     expect(divToolTip.exists()).toBe(false);
   });
 });
