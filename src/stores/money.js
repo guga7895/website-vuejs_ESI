@@ -2,6 +2,13 @@ import Vapi from 'vuex-rest-api'
 import { baseUrls } from '@/configs'
 import { http } from '@/utils'
 
+http.interceptors.request.use(config => {
+  console.log('Request URL:', config.url);
+  if (!(config.url.includes('/login/local')) && !(config.url.includes('/users'))) {
+    config.headers['Content-Type'] = 'application/xml';
+  }
+  return config;
+});
 // Gastos Abertos
 export default new Vapi({
   axios: http,
