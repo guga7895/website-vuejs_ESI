@@ -152,7 +152,7 @@ export default {
       this.logout()
     },
     selectedYear (year) {
-      this.$router.push({ name: 'home', params: { year } })
+      this.$router.push({ name: 'home', params: { year, page: 1 } })
     },
     ...mapActions(['logout','getYears']),
     ...mapMutations(['openModal'])
