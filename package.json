@@ -10,12 +10,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "3": "^2.1.0",
+    "1.1.0": "^1.0.0",
     "@heroicons/vue": "^1.0.6",
     "apexcharts": "^3.35.0",
     "autoprefixer": "^9.8.6",
+    "babel-plugin-transform-require-context": "^0.1.1",
     "flowbite": "^1.4.2",
     "jest-environment-jsdom": "^29.7.0",
-    "leaflet": "^1.9.4",
+    "leaflet": "^1.1.0",
+    "leaflet.markercluster": "^1.5.3",
     "node-sass": "^4.0.0",
     "postcss": "^8.0.0",
     "tailwindcss": "^3",
@@ -46,6 +50,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
+    "jest-transform-stub": "^2.0.0",
     "jsdom": "^25.0.1",
     "jsdom-global": "^3.0.2",
     "jwt-decode": "^2.2.0",
@@ -58,7 +63,7 @@
     "vue-cli-plugin-tailwind": "~3.0.0",
     "vue-jest": "^3.0.7",
     "vue-template-compiler": "^2.7.16",
-    "vue2-leaflet-markercluster": "^2.0.0",
+    "vue2-leaflet-markercluster": "3.1.0",
     "vuex-rest-api": "^2.10.0",
     "vuex-router-sync": "^5.0.0",
     "wait-on": "^8.0.1"
@@ -96,16 +101,30 @@
     ],
     "transform": {
       ".*\\.(vue)$": "vue-jest",
-      ".*\\.(js)$": "babel-jest"
+      ".*\\.(js)$": "babel-jest",
+      ".*\\.(svg|png|jpg|jpeg|gif|webp|ttf|woff|woff2)$": "jest-transform-stub"
     },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!vue-code-highlight)"
+    ],
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "svg-inline-loader!(.*)$": "<rootDir>/__mocks__/svg-inline-loader.js"
     },
     "testEnvironment": "jsdom"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
-    ]
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          [
+            "transform-require-context"
+          ]
+        ]
+      }
+    }
   }
 }
