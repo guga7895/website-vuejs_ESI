@@ -2,6 +2,9 @@ import { shallowMount} from '@vue/test-utils';
 import Vuex from 'vuex';
 import LoginForm from '@/components/LoginForm.vue';
 import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+
+
 
 Vue.use(Vuex);
 
@@ -13,6 +16,7 @@ describe('LoginForm.vue', () => {
   let state;
   let actions;
   let mutations;
+  let wrapper;
 
   beforeEach(() => {
     state = {
@@ -24,7 +28,8 @@ describe('LoginForm.vue', () => {
     };
 
     actions = {
-      loginUser: jest.fn()
+      loginUser: jest.fn(),
+      registerUser: jest.fn()
     };
 
     mutations = {
@@ -36,6 +41,17 @@ describe('LoginForm.vue', () => {
       state,
       actions,
       mutations
+    });
+    wrapper = mount(LoginForm, {
+      store,
+      data() {
+        return {
+          username: 'vitinho123',
+          password: '12345',
+          passwordConf: '12345',
+          email: 'vitin@gmail.com',
+        };
+      }
     });
   });
 
@@ -71,4 +87,62 @@ describe('LoginForm.vue', () => {
       }
     });
   });
-});
+
+    it('deve definir um erro se as senhas não coincidirem', async () => {
+      await wrapper.setData({ passwordConf: 'differentPassword' });
+
+      await wrapper.vm.sendRegister();
+
+      
+      expect(mutations.setAuthError).toHaveBeenCalledWith(
+        expect.any(Object), 
+        { message: 'Different passwords', fields: ['password', 'confirm-password'] }
+      );
+      
+      expect(actions.registerUser).not.toHaveBeenCalled();
+      
+     
+      expect(mutations.closeModal).not.toHaveBeenCalled();
+    });
+
+    it('deve registrar o usuário e fechar o modal com senhas coincidentes', async () => {
+      await wrapper.vm.sendRegister();
+  
+     
+      expect(actions.registerUser).toHaveBeenCalledWith(
+        expect.any(Object), 
+        {
+          data: {
+            username: wrapper.vm.username,
+            password: wrapper.vm.password,
+            email: wrapper.vm.email
+          }
+        }
+      );
+      
+      
+      expect(mutations.closeModal).toHaveBeenCalled();
+    });
+
+    it('não deve definir erro nem fechar modal se ocorrer um erro em registerUser', async () => {
+      actions.registerUser.mockRejectedValueOnce(new Error('Erro de registro'));
+  
+      await wrapper.vm.sendRegister();
+  
+      
+      expect(mutations.setAuthError).not.toHaveBeenCalled();
+      expect(mutations.closeModal).not.toHaveBeenCalled();
+    });
+  });
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
