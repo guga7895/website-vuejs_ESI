@@ -70,6 +70,6 @@ describe('YearSelect.vue', () => {
 
     await wrapper.vm.selected(2024);
 
-    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'home', params: { year: 2024 } });
+    expect(wrapper.vm.$router.push).toHaveBeenCalledWith({ name: 'home', params: { year: 2024, page: 1} });
   });
 });
