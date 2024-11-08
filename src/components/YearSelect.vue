@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     selected (year) {
-      this.$router.push({ name: 'home', params: { year } })
+      this.$router.push({ name: 'home', params: { year, page: 1 } })
     },
     ...mapActions([
       'getYears'
