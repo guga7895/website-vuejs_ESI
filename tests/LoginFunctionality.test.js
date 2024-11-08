@@ -2,6 +2,9 @@ import { shallowMount} from '@vue/test-utils';
 import Vuex from 'vuex';
 import LoginForm from '@/components/LoginForm.vue';
 import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+
+
 
 Vue.use(Vuex);
 
@@ -13,6 +16,7 @@ describe('LoginForm.vue', () => {
   let state;
   let actions;
   let mutations;
+  let wrapper;
 
   beforeEach(() => {
     state = {
@@ -37,6 +41,17 @@ describe('LoginForm.vue', () => {
       state,
       actions,
       mutations
+    });
+    wrapper = mount(LoginForm, {
+      store,
+      data() {
+        return {
+          username: 'vitinho123',
+          password: '12345',
+          passwordConf: '12345',
+          email: 'vitin@gmail.com',
+        };
+      }
     });
   });
 
@@ -73,143 +88,58 @@ describe('LoginForm.vue', () => {
     });
   });
 
-    it('deve chamar a mutação setAuthError quando houver um erro de campo', async () => {
-      const mockSetAuthError = jest.fn();
+    it('deve definir um erro se as senhas não coincidirem', async () => {
+      await wrapper.setData({ passwordConf: 'differentPassword' });
+
+      await wrapper.vm.sendRegister();
+
       
-      const obj = shallowMount(LoginForm, {
-        store,
-        Vue,
-        mocks: {
-          $refs: {
-            username: {
-              focus: jest.fn() 
-            }
-          }
-        },
-        computed: {
-          errorData: { fields: ['password'] } // Simulando um erro de campo
-        },
-        methods: {
-          setAuthError: mockSetAuthError 
-        }
-      });
-    
-      // Simulando um erro de login e chamando sendLogin
-      obj.vm.setAuthError({ message: 'Invalid credentials', fields: ['password'] });
+      expect(mutations.setAuthError).toHaveBeenCalledWith(
+        expect.any(Object), 
+        { message: 'Different passwords', fields: ['password', 'confirm-password'] }
+      );
       
-      expect(mockSetAuthError).toHaveBeenCalledWith({
-        message: 'Invalid credentials',
-        fields: ['password']
-      });
-    
+      expect(actions.registerUser).not.toHaveBeenCalled();
       
-      expect(mockSetAuthError.mock.calls.length).toBe(2); // Verificar que foram feitas 2 chamadas
-    });
-  
-    it('deve renderizar os campos ao mudar para a view de registro', async () => {
-      const obj = shallowMount(LoginForm, {
-        store,
-        Vue,
-        mocks: {
-          $refs: {
-            username: { focus: jest.fn() }
-          }
-        }
-      });
-    
-      
-      obj.vm.changeView('register');
-      await obj.vm.$nextTick(); 
-    
-      
-      const usernameField = obj.find('#login-form-username');
-      expect(usernameField.exists()).toBe(true);
-    
-      
-      const emailField = obj.find('#login-form-email');
-      expect(emailField.exists()).toBe(true);
+     
+      expect(mutations.closeModal).not.toHaveBeenCalled();
     });
 
-    it('deve chamar a ação "registerUser" quando o formulário for enviado com sucesso', async () => {
-      const actions = {
-        registerUser: jest.fn()
-      };
-    
-      const obj = shallowMount(LoginForm, {
-        store: new Vuex.Store({
-          actions
-        }),
-        mocks: {
-          $refs: {
-            username: { focus: jest.fn() } // Mock da referência para o campo de username
-          }
-        },
-        methods: {
-          sendRegister() {
-            const { username, password, passwordConf, email } = this.formData;
-    
-            // Dispara a ação 'registerUser'
-            this.$store.dispatch('registerUser', {
-              data: {
-                username,
-                password,
-                passwordConf,
-                email
-              }
-            });
+    it('deve registrar o usuário e fechar o modal com senhas coincidentes', async () => {
+      await wrapper.vm.sendRegister();
+  
+     
+      expect(actions.registerUser).toHaveBeenCalledWith(
+        expect.any(Object), 
+        {
+          data: {
+            username: wrapper.vm.username,
+            password: wrapper.vm.password,
+            email: wrapper.vm.email
           }
         }
-      });
-    
-      // Muda para a view de registro
-      obj.vm.changeView('register');
+      );
       
-      // Espera o DOM ser atualizado
-      await obj.vm.$nextTick();
-    
-      // Espera que o campo username seja renderizado
-      const usernameField = obj.find('#login-form-username');
-      expect(usernameField.exists()).toBe(true); // Verifica se o campo de username está presente no DOM
-    
-      // Verifica se a referência 'username' está configurada corretamente
-      const usernameRef = obj.vm.$refs.username;
-      expect(usernameRef).toBeDefined(); // A referência deve existir agora
-    
-      // Verifica se o método focus foi chamado
-      if (usernameRef) {
-        usernameRef.focus();
-      }
-    
-      // Preenche os campos
-      await usernameField.setValue('vitinho123');
-      const passwordField = obj.find('#login-form-password');
-      await passwordField.setValue('12345');
-      const confirmPasswordField = obj.find('#login-form-confirm-password');
-      await confirmPasswordField.setValue('12345');
-      const emailField = obj.find('#login-form-email');
-      await emailField.setValue('vitin@gmail.com');
-    
-      // Dispara o envio do formulário
-      await obj.find('form').trigger('submit');
-    
-      // Verifica se a ação 'registerUser' foi chamada com os dados corretos
-      expect(actions.registerUser).toHaveBeenCalledWith(expect.anything(), {
-        data: {
-          username: 'vitinho123',
-          password: '12345',
-          passwordConf: '12345',
-          email: 'vitin@gmail.com'
-        }
-      });
+      
+      expect(mutations.closeModal).toHaveBeenCalled();
     });
+
+    it('não deve definir erro nem fechar modal se ocorrer um erro em registerUser', async () => {
+      actions.registerUser.mockRejectedValueOnce(new Error('Erro de registro'));
+  
+      await wrapper.vm.sendRegister();
+  
+      
+      expect(mutations.setAuthError).not.toHaveBeenCalled();
+      expect(mutations.closeModal).not.toHaveBeenCalled();
+    });
+  });
+
     
     
     
     
     
-    
-    
-});
     
     
     
