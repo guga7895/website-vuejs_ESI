@@ -19,39 +19,3 @@ npm i
 ```
 npm run test
 ```
-
-## Rodar Testes Cucumber
-
-Para rodar os testes cucumber locais (no localhost), utilizar: 
-```
-cucumber -p localhost
-```
-Para rodar os testes cucumber no website funcionando (cuidando.vc), utilizar:
-```
-cucumber -p cuidando_vc
-```
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
